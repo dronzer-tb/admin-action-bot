@@ -260,25 +260,11 @@ while ! validate_command "tempban" "$CMD_TEMPBAN" "true"; do
     CMD_TEMPBAN=${CMD_TEMPBAN:-"tempban {player} {duration}m {reason}"}
 done
 
-read -p "IP Ban command [default: ban {player} {reason}]: " CMD_IPBAN
-CMD_IPBAN=${CMD_IPBAN:-"ban {player} {reason}"}
-while ! validate_command "ipban" "$CMD_IPBAN" "true"; do
-    read -p "IP Ban command [default: ban {player} {reason}]: " CMD_IPBAN
-    CMD_IPBAN=${CMD_IPBAN:-"ban {player} {reason}"}
-done
-
-read -p "Mute command [default: mute {player} {reason}]: " CMD_MUTE
-CMD_MUTE=${CMD_MUTE:-"mute {player} {reason}"}
-while ! validate_command "mute" "$CMD_MUTE" "true"; do
-    read -p "Mute command [default: mute {player} {reason}]: " CMD_MUTE
-    CMD_MUTE=${CMD_MUTE:-"mute {player} {reason}"}
-done
-
-read -p "Warn command [default: warn {player} {reason}]: " CMD_WARN
-CMD_WARN=${CMD_WARN:-"warn {player} {reason}"}
-while ! validate_command "warn" "$CMD_WARN" "true"; do
-    read -p "Warn command [default: warn {player} {reason}]: " CMD_WARN
-    CMD_WARN=${CMD_WARN:-"warn {player} {reason}"}
+read -p "Ban command (permanent) [default: ban {player} {reason}]: " CMD_BAN
+CMD_BAN=${CMD_BAN:-"ban {player} {reason}"}
+while ! validate_command "ban" "$CMD_BAN" "true"; do
+    read -p "Ban command (permanent) [default: ban {player} {reason}]: " CMD_BAN
+    CMD_BAN=${CMD_BAN:-"ban {player} {reason}"}
 done
 
 echo ""
@@ -324,13 +310,11 @@ PTERODACTYL_SERVER_ID=$PTERODACTYL_SERVER_ID
 ${ADMIN_ROLE_ID:+ADMIN_ROLE_ID=$ADMIN_ROLE_ID}
 COMMAND_PREFIX=!
 
-# Custom Minecraft Commands
+# Custom Minecraft Commands (LibertyBan format)
 CMD_KILL=$CMD_KILL
 CMD_KICK=$CMD_KICK
 CMD_TEMPBAN=$CMD_TEMPBAN
-CMD_IPBAN=$CMD_IPBAN
-CMD_MUTE=$CMD_MUTE
-CMD_WARN=$CMD_WARN
+CMD_BAN=$CMD_BAN
 CMD_FREEZE=$CMD_FREEZE
 CMD_UNFREEZE=$CMD_UNFREEZE
 EOF

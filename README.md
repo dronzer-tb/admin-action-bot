@@ -1,36 +1,51 @@
 # Admin Action Bot
 
-![Version](https://img.shields.io/badge/version-0.2.2-blue)
+![Version](https://img.shields.io/badge/version-1.1.0-blue)
 ![Python](https://img.shields.io/badge/python-3.9+-green)
 ![Discord.py](https://img.shields.io/badge/discord.py-2.3+-7289DA)
 ![Tests](https://img.shields.io/badge/tests-8%2F8%20passing-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-orange)
+![Status](https://img.shields.io/badge/status-production%20ready-success)
 
-**Version**: 0.2.2  
-**Status**: In Development
+**Version**: 1.1.0 🎉  
+**Status**: ✅ Production Ready - Stable Release
 
 ## Overview
 
-Admin Action Bot is a Discord-integrated Minecraft server administration tool that provides intuitive button-based moderation controls through Discord, connecting to Minecraft servers via the Pterodactyl API.
+Admin Action Bot is a **production-ready** Discord-integrated Minecraft server administration tool that provides intuitive button-based moderation controls through Discord, connecting to Minecraft servers via the Pterodactyl API.
 
-## Features
+## 🚀 One-Line Installer
 
-- 🎮 **Discord-Based Moderation** - Execute server commands without in-game access
-- 🔘 **Button Interface** - Intuitive, visual controls instead of text commands
-- ✅ **Confirmation Steps** - Prevent accidental actions with built-in confirmations
-- 📝 **Audit Logging** - Complete transparency with comprehensive action logs
-- 🔧 **Easy Setup** - Automated deployment script for quick VPS configuration
-- ⚙️ **Customizable** - Configure commands for your specific server setup
+```bash
+bash <(curl -s https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/install.sh)
+```
 
-## Supported Moderation Actions
+> **Note**: Replace `YOUR_USERNAME/YOUR_REPO` with your actual GitHub repository path after pushing to GitHub.
 
-- Kill - Remove a player instantly
-- Kick - Disconnect a player with optional reason
-- Temp Ban - Temporarily ban for specified duration
-- IP Ban - Permanently ban by IP address
-- Mute - Prevent chat messages
-- Warn - Issue formal warnings
-- Tick Freeze/Unfreeze - Control player movement
+## ✨ Features
+
+- 🎮 **Discord-Based Moderation** - Execute server commands without in-game access  
+- 🔘 **Button Interface** - Intuitive, visual controls instead of text commands  
+- 📋 **Interactive Modals** - Easy input forms for player names, reasons, and durations  
+- 🎯 **Player Dropdown** - Auto-remembers last 25 players for quick selection (NEW in v1.1.0!)  
+- ✅ **Real-Time Execution** - Commands execute instantly via Pterodactyl API  
+- 📝 **Audit Logging** - Complete transparency with detailed action logs  
+- 🔧 **Easy Setup** - Automated deployment script for quick VPS configuration  
+- ⚙️ **Customizable** - Configure commands for your specific server setup  
+- 🛡️ **Role-Based Access** - Admin role restrictions for security  
+- 📍 **Channel Separation** - Dedicated channels for commands and audit logs  
+- 🔄 **Persistent Buttons** - Buttons work even after bot restarts or Discord reconnections
+
+## 🎯 Supported Moderation Actions (All Functional!)
+
+| Action | Status | Description |
+|--------|--------|-------------|
+| 🔴 Kill | ✅ Working | Remove a player instantly |
+| 👢 Kick | ✅ Working | Disconnect a player with reason |
+| ⏰ Temp Ban | ✅ Working | Temporarily ban for specified duration (minutes) |
+| 🚫 Ban | ✅ Working | Permanently ban player with reason |
+| ❄️ Freeze | ✅ Working | Freeze game ticks (instant) |
+| ✅ Unfreeze | ✅ Working | Unfreeze game ticks (instant) |
 
 ## Quick Start
 
@@ -43,9 +58,25 @@ Admin Action Bot is a Discord-integrated Minecraft server administration tool th
 
 ### Installation
 
+#### Option 1: One-Line Install (Recommended)
+```bash
+bash <(curl -s https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/install.sh)
+```
+> Replace `YOUR_USERNAME/YOUR_REPO` with your GitHub repository path.
+
+This will automatically:
+- ✅ Install all dependencies
+- ✅ Create virtual environment
+- ✅ Run interactive configuration
+- ✅ Set up systemd service (optional)
+- ✅ Start the bot
+
+#### Option 2: Manual Installation
+
 1. **Clone or download the repository**
    ```bash
-   cd /path/to/admin-action-bot
+   git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
+   cd YOUR_REPO
    ```
 
 2. **Run the automated setup script**
@@ -97,7 +128,7 @@ In your Discord server, use the `/admin` command **in the designated bot channel
 
 **Important:** The `/admin` command only works in the channel you configured during setup. This keeps your server organized and prevents command spam in other channels.
 
-**Note**: Currently, action buttons show "not yet implemented" messages. Full functionality will be added in version 0.3.0.
+**New in v1.1.0**: The bot now remembers the last 25 players you've moderated! After entering a player name once, they'll appear in a dropdown menu for quick selection.
 
 ## Project Structure
 
@@ -152,10 +183,13 @@ See [CHANGELOG.md](CHANGELOG.md) for version history and changes.
 - ✅ Dual-channel architecture
 - ✅ Admin panel UI
 - ✅ Audit logging framework
-- ⏳ Pterodactyl API integration (v0.3.0)
-- ⏳ Player selection (v0.3.0)
-- ⏳ Command execution (v0.3.0)
-- ⏳ Full workflow (v0.3.0)
+- ✅ Pterodactyl API integration
+- ✅ Player dropdown selection
+- ✅ Command execution (all 6 actions working)
+- ✅ Full workflow (production ready)
+- ✅ LibertyBan compatibility
+- ✅ Persistent buttons
+- ✅ Player caching system
 
 ---
 

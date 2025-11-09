@@ -30,22 +30,19 @@ class Config:
         self.admin_role_id: Optional[int] = self._get_optional_int("ADMIN_ROLE_ID")
         self.command_prefix: str = os.getenv("COMMAND_PREFIX", "!")
         
-        # Custom Command Mappings
-        self.commands: Dict[str, str] = {
-            "kill": os.getenv("CMD_KILL", "kill {player}"),
-            "kick": os.getenv("CMD_KICK", "kick {player} {reason}"),
-            "tempban": os.getenv("CMD_TEMPBAN", "tempban {player} {duration}m {reason}"),
-            "ipban": os.getenv("CMD_IPBAN", "ban {player} {reason}"),
-            "mute": os.getenv("CMD_MUTE", "mute {player} {reason}"),
-            "warn": os.getenv("CMD_WARN", "warn {player} {reason}"),
-            "freeze": os.getenv("CMD_FREEZE", "tick freeze"),
-            "unfreeze": os.getenv("CMD_UNFREEZE", "tick unfreeze"),
-        }
+        # Command templates
+        self.cmd_kill = os.getenv('CMD_KILL', 'kill {player}')
+        self.cmd_kick = os.getenv('CMD_KICK', 'kick {player} {reason}')
+        self.cmd_tempban = os.getenv('CMD_TEMPBAN', 'tempban {player} {duration}m {reason}')
+        self.cmd_ban = os.getenv('CMD_BAN', 'ban {player} {reason}')
+        self.cmd_freeze = os.getenv('CMD_FREEZE', 'tick freeze')
+        self.cmd_unfreeze = os.getenv('CMD_UNFREEZE', 'tick unfreeze')
         
-        # Commands that require {player} placeholder
-        self.player_required_commands = ["kill", "kick", "tempban", "ipban", "mute", "warn"]
-        # Commands that don't require {player} (game-wide commands)
-        self.global_commands = ["freeze", "unfreeze"]
+        # Commands that require player parameter
+        self.player_required_commands = ['kill', 'kick', 'tempban', 'ban']
+        
+        # Commands that are global (don't need player parameter)
+        self.global_commands = ['freeze', 'unfreeze']
     
     def _get_required(self, key: str) -> str:
         """Get required environment variable or raise error"""
@@ -58,6 +55,18 @@ class Config:
         """Get optional integer environment variable"""
         value = os.getenv(key)
         return int(value) if value else None
+    
+    @property
+    def commands(self) -> Dict[str, str]:
+        """Get all command templates as a dictionary"""
+        return {
+            'kill': self.cmd_kill,
+            'kick': self.cmd_kick,
+            'tempban': self.cmd_tempban,
+            'ban': self.cmd_ban,
+            'freeze': self.cmd_freeze,
+            'unfreeze': self.cmd_unfreeze
+        }
     
     def validate(self) -> bool:
         """Validate configuration values"""

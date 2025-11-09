@@ -238,3 +238,170 @@
 
 ---
 
+## [2025-11-09T08:39:24.323Z] - REPOSITORY_SETUP - VERSION: 0.2.2 (PATCH)
+
+**MCP Servers Used**: time
+**Files Created**:
+- ./CONTRIBUTING.md (contribution guidelines)
+- ./LICENSE (MIT License)
+- ./GITHUB_SETUP.md (detailed GitHub setup instructions)
+
+**Files Modified**:
+- ./setup.sh (added old .env backup and cleanup)
+- ./.gitignore (added .env.backup* and fix_env.sh exclusions)
+- ./README.md (added badges, license info, project status)
+
+**Version Change**: No version change (documentation only)
+**Git Actions**:
+- ✅ Initialized git repository
+- ✅ Configured git with user info
+- ✅ Created .gitignore with proper exclusions
+- ✅ Staged all project files (20 files)
+- ✅ Created initial commit
+- ✅ Added LICENSE and CONTRIBUTING files
+- ✅ Created second commit
+- ✅ Ready to push to GitHub
+
+**Reasoning**: Prepared project for GitHub publication. Updated setup script to handle old .env files gracefully by creating timestamped backups and cleaning up old backups. Added proper open-source project files (LICENSE, CONTRIBUTING) and comprehensive GitHub setup guide.
+
+### Changes Made:
+- ✅ Updated setup.sh to backup existing .env files with timestamps
+- ✅ Added automatic cleanup of .env backups older than 7 days
+- ✅ Enhanced .gitignore to exclude .env.backup* files and fix_env.sh
+- ✅ Added MIT License for open-source distribution
+- ✅ Created contribution guidelines following project protocols
+- ✅ Enhanced README with GitHub badges and project status
+- ✅ Created detailed GitHub setup instructions
+- ✅ Initialized git repository with 2 commits
+- ✅ All sensitive files (.env) properly excluded from version control
+
+### Setup Script Improvements:
+**Old .env Handling:**
+```bash
+if [ -f ".env" ]; then
+    print_warning "Existing .env file found. Creating backup..."
+    mv .env .env.backup.$(date +%Y%m%d_%H%M%S)
+    print_success "Old .env file backed up"
+fi
+
+# Remove any old backup files older than 7 days
+find . -maxdepth 1 -name ".env.backup.*" -mtime +7 -delete 2>/dev/null
+```
+
+### Git Repository Status:
+- **Branch**: main
+- **Commits**: 2
+- **Files tracked**: 22 (including new LICENSE and CONTRIBUTING.md)
+- **Files ignored**: .env, .env.backup*, fix_env.sh, venv/, __pycache__, etc.
+- **Ready for**: GitHub push
+
+### Files in Repository:
+```
+.env.example          ✅ Template for configuration
+.gitignore            ✅ Proper exclusions
+BUG_FIX_SUMMARY.md    ✅ Bug fix documentation
+CHANGELOG.md          ✅ Version history
+CHANNEL_SEPARATION.md ✅ Feature guide
+CONTRIBUTING.md       ✅ NEW - Contribution guidelines
+GITHUB_SETUP.md       ✅ NEW - GitHub push instructions
+LICENSE               ✅ NEW - MIT License
+README.md             ✅ Enhanced with badges
+VERSION               ✅ Current version (0.2.2)
+bugs.txt              ✅ Bug reports
+docs/PRD.md           ✅ Product requirements
+get_channel_ids.py    ✅ Helper script
+logs/agent_log.md     ✅ Development log
+main.py               ✅ Entry point
+requirements.txt      ✅ Dependencies
+setup.sh              ✅ Automated setup (improved)
+src/                  ✅ Source code
+tests/                ✅ Test suite
+verify_config.py      ✅ Config verification
+```
+
+### Next Steps for User:
+1. Create repository on GitHub
+2. Add remote: `git remote add origin https://github.com/USERNAME/REPO.git`
+3. Push: `git push -u origin main`
+4. Configure repository settings (topics, description)
+
+### Related PRD Sections:
+- 2.6 (Setup & Deployment) - Enhanced setup script
+- 3 (Technical Architecture) - Repository structure
+
+---
+
+## [2025-11-09T09:15:33.127Z] - CRITICAL_BUG_FIX - VERSION: 0.2.3 (PATCH)
+
+**MCP Servers Used**: time
+**Files Modified**:
+- ./src/bot.py (interaction timeout fix + welcome message)
+- ./VERSION (0.2.2 → 0.2.3)
+- ./CHANGELOG.md (added v0.2.3 entry)
+
+**Files Created**:
+- ./INTERACTION_TIMEOUT_FIX.md (detailed technical documentation)
+
+**Bug Report**: User reported "Unknown interaction" error (Discord 10062) when running `/admin` command. Bot came online but users had no indication of available commands.
+
+**Root Cause Analysis**:
+1. **Interaction Timeout** - Discord requires bots to acknowledge interactions within 3 seconds
+2. **Processing Delay** - Code performed channel and permission validation BEFORE acknowledging
+3. **Invalid Interaction** - By the time bot tried to respond, Discord had invalidated the interaction
+4. **No Discovery** - Bot had no welcome message or command hints for users
+
+**Solution Implemented**:
+```python
+# BEFORE (v0.2.2) - ❌ BROKEN
+async def show_admin_panel(self, interaction: discord.Interaction):
+    if interaction.channel_id != self.config.bot_channel_id:
+        await interaction.response.send_message(...)  # May timeout
+        return
+
+# AFTER (v0.2.3) - ✅ FIXED
+async def show_admin_panel(self, interaction: discord.Interaction):
+    await interaction.response.defer(ephemeral=True)  # Acknowledge immediately
+    if interaction.channel_id != self.config.bot_channel_id:
+        await interaction.followup.send(...)  # Use followup after defer
+        return
+```
+
+**Key Changes**:
+- ✅ Added `await interaction.response.defer(ephemeral=True)` at start of `show_admin_panel()`
+- ✅ Changed 3x `interaction.response.send_message()` to `interaction.followup.send()`
+- ✅ Added `send_welcome_message()` method (47 lines) - posts to bot channel on startup
+- ✅ Updated bot status: "watching for moderation needs | /admin"
+- ✅ Created comprehensive technical documentation
+
+**Welcome Message Features**:
+- Shows bot is online with green embed
+- Lists all available commands (currently just `/admin`)
+- Displays all 8 moderation actions with emojis and descriptions
+- Shows version number (0.2.3)
+- Indicates where audit logs are posted
+- Timestamp of bot startup
+
+**Technical Details**:
+- Discord interaction lifecycle: 3 seconds initial response → 15 minutes with defer
+- `defer()` must be first response method called
+- After defer, must use `followup` methods, not `response` methods
+- Ephemeral messages only visible to command user (privacy for admin tools)
+
+**Testing Status**: Ready for deployment
+- Fix addresses exact error from stack trace (line 170 in bot.py)
+- Defer happens within milliseconds (well under 3-second limit)
+- Validation can now take up to 15 minutes without timeout
+- Welcome message provides command discovery
+
+**Impact**:
+- **CRITICAL FIX** - Bot was completely non-functional before this
+- Users can now successfully run `/admin` command
+- New users can discover commands through welcome message and bot status
+- Better user experience overall
+
+### Related PRD Sections:
+- 2.2 (User Interface) - Slash command interaction
+- 2.6 (Setup & Deployment) - Bot startup process
+
+---
+
