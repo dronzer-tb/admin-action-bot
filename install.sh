@@ -1,6 +1,4 @@
 #!/bin/bash
-# One-line installer for Admin Action Bot
-# Usage: bash <(curl -s https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/install.sh)
 
 set -e  # Exit on error
 
@@ -12,7 +10,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Configuration
-REPO_URL="https://github.com/YOUR_USERNAME/YOUR_REPO.git"
+REPO_URL="https://github.com/dronzer-tb/admin-action-bot.git"
 INSTALL_DIR="$HOME/admin-action-bot"
 SERVICE_NAME="admin-action-bot"
 
