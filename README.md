@@ -1,5 +1,11 @@
 # Admin Action Bot
 
+![Version](https://img.shields.io/badge/version-0.2.2-blue)
+![Python](https://img.shields.io/badge/python-3.9+-green)
+![Discord.py](https://img.shields.io/badge/discord.py-2.3+-7289DA)
+![Tests](https://img.shields.io/badge/tests-8%2F8%20passing-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-orange)
+
 **Version**: 0.2.2  
 **Status**: In Development
 
@@ -122,8 +128,35 @@ This project follows strict version control and logging protocols:
 
 ## License
 
-*(To be determined)*
+MIT License - see [LICENSE](LICENSE) file for details
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines and how to contribute to this project.
 
 ## Support
 
-*(Contact information to be added)*
+- **Documentation**: See [docs/PRD.md](docs/PRD.md)
+- **Bug Reports**: Open an issue on GitHub
+- **Feature Requests**: Check PRD first, then open an issue
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for version history and changes.
+
+## Project Status
+
+- ✅ Core bot framework
+- ✅ Automated setup
+- ✅ Configuration management
+- ✅ Dual-channel architecture
+- ✅ Admin panel UI
+- ✅ Audit logging framework
+- ⏳ Pterodactyl API integration (v0.3.0)
+- ⏳ Player selection (v0.3.0)
+- ⏳ Command execution (v0.3.0)
+- ⏳ Full workflow (v0.3.0)
+
+---
+
+**Made with ❤️ for Minecraft server administrators**
