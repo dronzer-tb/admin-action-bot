@@ -17,7 +17,7 @@ Admin Action Bot is a **production-ready** Discord-integrated Minecraft server a
 ## 🚀 One-Line Installer
 
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/install.sh)
+bash <(curl -s https://raw.githubusercontent.com/dronzer-tb/admin-action-bot/main/install.sh)
 ```
 
 > **Note**: Replace `YOUR_USERNAME/YOUR_REPO` with your actual GitHub repository path after pushing to GitHub.
